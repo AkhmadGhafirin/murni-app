@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">murni-app</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="title_login_page">Login</string>
+    <string name="title_signup_page">Register</string>
+    <string name="username">Username</string>
+    <string name="age">Age</string>
+    <string name="edit">Edit</string>
+    <string name="confirm_password">Confirm Password</string>
+</resources>
