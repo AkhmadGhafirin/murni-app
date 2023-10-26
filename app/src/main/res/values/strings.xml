@@ -3,7 +3,7 @@
     <string name="register">Register</string>
     <string name="login">Login</string>
     <string name="password">Password</string>
-    <string name="email">Email</string>
+    <string name="hello">Halo, %1$s</string>
     <string name="title_login_page">Login</string>
     <string name="title_signup_page">Register</string>
     <string name="username">Username</string>

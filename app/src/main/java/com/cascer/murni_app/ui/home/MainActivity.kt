@@ -1,9 +1,12 @@
 package com.cascer.murni_app.ui.home
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.cascer.murni_app.R
 import com.cascer.murni_app.data.model.User
 import com.cascer.murni_app.databinding.ActivityMainBinding
 import com.cascer.murni_app.utils.gone
@@ -29,7 +32,20 @@ class MainActivity : AppCompatActivity() {
     private fun setupView(user: User) {
         with(binding) {
             etAge.setText(user.age.toString())
-            tvTitle.text = username
+            tvTitle.text = getString(R.string.hello, username)
+            btnEdit.isEnabled = false
+            etAge.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    btnEdit.isEnabled = s.toString() != user.age.toString()
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                }
+
+            })
             btnEdit.setOnClickListener {
                 editUser(username, user.password)
             }
@@ -43,23 +59,6 @@ class MainActivity : AppCompatActivity() {
         } else {
             viewModel.editUser(username, password, age.toInt())
         }
-
-//        val password = binding.etPassword.text.toString()
-//        val confirmPassword = binding.etConfirmPassword.text.toString()
-//        val age = binding.etAge.text.toString()
-//        if (password.isEmpty()) {
-//            binding.etPassword.error = "Password wajib diisi"
-//        } else if (!isValidPassword(password)) {
-//            binding.etPassword.error = "Password tidak valid"
-//        } else if (confirmPassword.isEmpty()) {
-//            binding.etConfirmPassword.error = "Confirm Password wajib diisi"
-//        } else if (confirmPassword != password) {
-//            binding.etConfirmPassword.error = "Password tidak sama"
-//        } else if (age.isEmpty()) {
-//            binding.etAge.error = "Age wajib diisi"
-//        } else {
-//            viewModel.editUser(username, password, age.toInt())
-//        }
     }
 
     private fun setupViewModel() {
@@ -91,18 +90,5 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    private fun isValidPassword(password: String): Boolean {
-        if (password.length < 6) return false
-
-        val hasLetter = password.any { it.isLetter() }
-        val hasNumber = password.any { it.isDigit() }
-        if (!hasLetter || !hasNumber) return false
-
-        val hasUpperCase = password.any { it.isUpperCase() }
-        if (!hasUpperCase) return false
-
-        return true
     }
 }
